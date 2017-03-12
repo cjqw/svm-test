@@ -17,7 +17,7 @@ def parseData(s):
     return [value,dims]
 
 def classification(dataSet):
-    result = [[] for i in range(0,MAX_CLASS)]
+    result = sequence(MAX_CLASS,(lambda x: []))
     for dataItem in dataSet:
         y = dataItem[0]
         if y < MAX_CLASS:
@@ -33,5 +33,7 @@ def testModel(vl,vr,m):
 # main procedure
 
 data = classification(mapv(parseData,readFile(INPUT_FILE)))
-test = classification(mapv(parseData,readFile(TEST_FILE)))
+test = mapv(parseData,readFile(TEST_FILE))
+test = filterv(lambda x: x[0] < MAX_CLASS,test)
+test = [mapv(lambda x:x[1],test), mapv(lambda x:x[0],test)]
 TestOneVersusOne(data,test)
