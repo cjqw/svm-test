@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from ovo import *
+from ovr import *
 from random import shuffle
 from util import *
 from setting import *
@@ -29,4 +30,5 @@ data = classification(mapv(parseData,readFile(INPUT_FILE)))
 test = mapv(parseData,readFile(TEST_FILE))
 test = filterv(lambda x: x[0] < MAX_CLASS,test)
 test = [mapv(lambda x:x[1],test), mapv(lambda x:x[0],test)]
-TestOneVersusOne(data,test)
+# TestOneVersusOne(data,test)
+TestOneVersusRest(data,test)
