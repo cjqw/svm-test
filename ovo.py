@@ -1,17 +1,5 @@
-from svmutil import *
 from util import *
 from setting import *
-
-def trainData(vl,vr,dataSet,cmd = '-c 10 -g 1'):
-    """Train a model which can tell vl and vr.
-    data of vl set will be marked with 1, while vr with -1
-    Default command is '-c 10 -g 1'"""
-    x,y = partitionData(vl,vr,dataSet)
-    return svm_train(y,x,cmd)
-
-def testResult(m,testSet):
-    "Test a model and return the accuracy."
-    return svm_predict(testSet[1],testSet[0],m)[0]
 
 def vote(x,l,r):
     if x > 0:return l
@@ -38,10 +26,6 @@ def TestOneVersusOne(dataSet,testSet,cmd = '-c 10 -g 1'):
         v = mapv(lambda x: vote(x,l,r),testResult(m,testSet))
         result = list(map(combine,result,v))
     result = mapv(maxOccurence,result)
-    hit = 0
-    total = len(result)
-    for i in range(0,total):
-        if result[i] == testSet[1][i]:
-            hit = hit + 1
-    print(hit/total)
+    hit,total,acc = accuracy(result,testSet[1])
+    print("acc: ",acc,"%")
     print("hit/total: ",hit,"/",total)

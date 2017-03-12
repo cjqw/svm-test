@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from svmutil import *
-from hw import *
+from ovo import *
 from random import shuffle
 from util import *
 from setting import *
@@ -23,12 +22,6 @@ def classification(dataSet):
         if y < MAX_CLASS:
             result[y].append(dataItem[1])
     return result
-
-def testModel(vl,vr,m):
-    "Test a model and return the accuracy."
-    x,y = partitionData(vl,vr,test)
-    result = svm_predict(y,x,m)[1]
-    return result[0]
 
 # main procedure
 
