@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from ovo import *
-from ovr import *
+from ovo import testOneVersusOne
+from ovr import testOneVersusRest
+from pvp import testPartVersusPart
 from random import shuffle
 from util import *
 from setting import *
@@ -30,5 +31,6 @@ data = classification(mapv(parseData,readFile(INPUT_FILE)))
 test = mapv(parseData,readFile(TEST_FILE))
 test = filterv(lambda x: x[0] < MAX_CLASS,test)
 test = [mapv(lambda x:x[1],test), mapv(lambda x:x[0],test)]
-# TestOneVersusOne(data,test)
-TestOneVersusRest(data,test)
+# testOneVersusOne(data,test)
+# testOneVersusRest(data,test)
+testPartVersusPart(data,test)

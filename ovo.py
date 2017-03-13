@@ -15,7 +15,7 @@ def maxOccurence(s):
     for i in range(MAX_CLASS):
         if c[i] == max(c): return i
 
-def TestOneVersusOne(dataSet,testSet,cmd = '-c 10 -g 1'):
+def testOneVersusOne(dataSet,testSet,cmd = '-c 10000 -g 1'):
     """Train a multi-class classification model
     with one versus one method."""
     models = filterv(lambda x: x[0] < x[1] , plainMatrix(MAX_CLASS,MAX_CLASS))

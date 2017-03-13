@@ -9,7 +9,7 @@ def fill(label,new,old):
     if new > 0: return label
     return -1
 
-def TestOneVersusRest(dataSet,testSet,cmd = '-c 10 -g 1'):
+def testOneVersusRest(dataSet,testSet,cmd = '-c 10000 -g 8 -h 0'):
     """Train a multi-class classification model
     with one versus rest method."""
     models = mapv(lambda x: trainData([x],rest(x),dataSet,cmd),sequence(MAX_CLASS,lambda x: x))
