@@ -1,12 +1,12 @@
-from util import *
+from tools.util import *
 from setting import *
 
-def trainModel(s,dataSet,cmd):
+def trainModels(s,dataSet,cmd):
     l,r = s
     mid = (l + r) >> 1
     vl = [i for i in range(l,mid)]
     vr = [i for i in range(mid,r)]
-    return trainData(vl,vr,dataSet,cmd)
+    return getModel(vl,vr,dataSet,cmd)
 
 def calcModels(dataSet,cmd):
     models = [[0,MAX_CLASS]]
@@ -19,7 +19,7 @@ def calcModels(dataSet,cmd):
             models.append([mid,r])
         now = now + 1
     models = filterv(lambda x: x[1] - x[0] > 1, models)
-    mapv(lambda x: x.append(trainModel(x,dataSet,cmd)),models)
+    mapv(lambda x: x.append(trainModels(x,dataSet,cmd)),models)
     return models
 
 def classify(models,results):
@@ -33,7 +33,7 @@ def classify(models,results):
         else: l = mid
     return l
 
-def testPartVersusPart(dataSet,testSet,cmd = '-c 10000 -g 1'):
+def testPartVersusPart(dataSet,testSet,cmd = ''):
     """Train a multi-class classification model
     with part versus part method."""
     models = calcModels(dataSet,cmd)
@@ -46,3 +46,4 @@ def testPartVersusPart(dataSet,testSet,cmd = '-c 10000 -g 1'):
     hit,total,acc = accuracy(result,testSet[1])
     print("acc: ",acc,"%")
     print("hit/total: ",hit,"/",total)
+    # -c 10000 -g 1

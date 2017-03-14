@@ -1,5 +1,6 @@
 # Normal util functions
 from svmutil import *
+from tools.grid import *
 
 def readFile(input_file):
     """Read file via readlines"""
@@ -58,12 +59,36 @@ def accuracy(result,answer):
         if result[i] == answer[i]: hit = hit + 1
     return hit,total,(hit/total)*100
 
-def trainData(vl,vr,dataSet,cmd = '-c 10 -g 1'):
-    """Train a model which can tell vl and vr.
-    data of vl set will be marked with 1, while vr with -1
-    Default command is '-c 10 -g 1'"""
+def printData(fout,x,y):
+    for index in range(0,len(x)):
+        item = x[index]
+        label = y[index]
+        output = str(label)
+        for i in range(0,len(item)):
+            output = output + ' ' + str(i+1)+':'+str(item[i])
+        fout.write(output+'\n')
+
+def trainModel(vl,vr,dataSet,model_name,cmd):
     x,y = partitionData(vl,vr,dataSet)
-    return svm_train(y,x,cmd)
+    with open('tmp','w')as fout:
+        printData(fout,x,y)
+    rate, param = find_parameters('tmp', '-log2c 5,16,2 -log2g 10,-3,-2 -gnuplot null')
+    # param = {'c' : 10000, 'g': 1}
+    cmd = '-c ' + str(param["c"]) + ' -g ' + str(param["g"]) + cmd
+    cmd = cmd + ' -w1 ' + str(len(vr))
+    cmd = cmd + ' -w-1 ' + str(len(vl))
+    model = svm_train(y,x,cmd)
+    svm_save_model(model_name,model)
+    return model
+
+def getModel(vl,vr,dataSet,cmd):
+    """Train a model which can tell vl and vr.
+    data of vl set will be marked with 1, while vr with -1.'"""
+    model_name = 'models/' + str(vl) + ':' + str(vr) + ".model"
+    model = svm_load_model(model_name)
+    if model == None:
+        model = trainModel(vl,vr,dataSet,model_name,cmd)
+    return model
 
 def testResult(m,testSet):
     "Test a model and return the accuracy."

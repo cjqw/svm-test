@@ -5,7 +5,7 @@ from ovo import testOneVersusOne
 from ovr import testOneVersusRest
 from pvp import testPartVersusPart
 from random import shuffle
-from util import *
+from tools.util import *
 from setting import *
 
 # parse the data into wanted format
@@ -31,6 +31,6 @@ data = classification(mapv(parseData,readFile(INPUT_FILE)))
 test = mapv(parseData,readFile(TEST_FILE))
 test = filterv(lambda x: x[0] < MAX_CLASS,test)
 test = [mapv(lambda x:x[1],test), mapv(lambda x:x[0],test)]
-# testOneVersusOne(data,test)
+testOneVersusOne(data,test)
 # testOneVersusRest(data,test)
-testPartVersusPart(data,test)
+# testPartVersusPart(data,test)
