@@ -32,5 +32,5 @@ test = mapv(parseData,readFile(TEST_FILE))
 test = filterv(lambda x: x[0] < MAX_CLASS,test)
 test = [mapv(lambda x:x[1],test), mapv(lambda x:x[0],test)]
 testOneVersusOne(data,test)
-# testOneVersusRest(data,test)
-# testPartVersusPart(data,test)
+testPartVersusPart(data,test)
+testOneVersusRest(data,test)

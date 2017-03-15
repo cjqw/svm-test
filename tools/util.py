@@ -2,6 +2,10 @@
 from svmutil import *
 from tools.grid import *
 
+def identity(x): return x
+
+def constant(c): return (lambda x: c)
+
 def readFile(input_file):
     """Read file via readlines"""
     with open(input_file,"r") as fin:
