@@ -76,7 +76,7 @@ def trainModel(vl,vr,dataSet,model_name,cmd):
     x,y = partitionData(vl,vr,dataSet)
     with open('tmp','w')as fout:
         printData(fout,x,y)
-    rate, param = find_parameters('tmp', '-log2c 5,16,2 -log2g 10,-3,-2 -gnuplot null')
+    rate, param = find_parameters('tmp', '-log2c 5,16,2 -log2g 10,-3,-2 -gnuplot null -v')
     # param = {'c' : 10000, 'g': 1}
     cmd = '-c ' + str(param["c"]) + ' -g ' + str(param["g"]) + cmd
     cmd = cmd + ' -w1 ' + str(len(vr))
@@ -88,7 +88,7 @@ def trainModel(vl,vr,dataSet,model_name,cmd):
 def getModel(vl,vr,dataSet,cmd):
     """Train a model which can tell vl and vr.
     data of vl set will be marked with 1, while vr with -1.'"""
-    model_name = 'models/' + str(vl) + ':' + str(vr) + ".model"
+    model_name = 'models/' + str(vl) + ':' + str(vr) + cmd + ".model"
     model = svm_load_model(model_name)
     if model == None:
         model = trainModel(vl,vr,dataSet,model_name,cmd)

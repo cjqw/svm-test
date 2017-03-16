@@ -18,6 +18,7 @@ def maxOccurence(s):
 def testOneVersusOne(dataSet,testSet,cmd = ''):
     """Train a multi-class classification model
     with one versus one method."""
+    print("Testing one versus one method...")
     models = filterv(lambda x: x[0] < x[1] , plainMatrix(MAX_CLASS,MAX_CLASS))
     mapv(lambda x: x.append(getModel(x[:1],x[1:],dataSet,cmd)),models)
     result = sequence(len(testSet[0]),lambda x: [])

@@ -18,6 +18,7 @@ def testAccuracy(item,dataSet):
 def testOneVersusRest(dataSet,testSet,cmd = ''):
     """Train a multi-class classification model
     with one versus rest method."""
+    print("Testing one versus rest method...")
     models = mapv(lambda x: [x,getModel([x],rest(x),dataSet,cmd)],sequence(MAX_CLASS,identity))
     models = mapv(lambda x: testAccuracy(x,dataSet),models)
     models = sorted(models)

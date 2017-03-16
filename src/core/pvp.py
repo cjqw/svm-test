@@ -36,6 +36,7 @@ def classify(models,results):
 def testPartVersusPart(dataSet,testSet,cmd = ''):
     """Train a multi-class classification model
     with part versus part method."""
+    print("Testing part versus part method...")
     models = calcModels(dataSet,cmd)
     result = sequence(len(testSet[0]))
     class_result = mapv(lambda x: testResult(x[2],testSet),models)
@@ -46,4 +47,3 @@ def testPartVersusPart(dataSet,testSet,cmd = ''):
     hit,total,acc = accuracy(result,testSet[1])
     print("acc: ",acc,"%")
     print("hit/total: ",hit,"/",total)
-    # -c 10000 -g 1
