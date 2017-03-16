@@ -1,0 +1,8 @@
+* svm-test
+This is my homework using libsvm in a k-class classification problem.
+I tried 3 kinds of decomposing method to decompose the k-class problem
+into several 2-class problem: one vs one, one vs rest and part vs part.
+
+Grid search and cross validation are used to find the best parameters.
+
+For more details, see my [[file:report.pdf][report]].
